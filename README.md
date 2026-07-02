@@ -307,7 +307,7 @@ GitHub:
 https://github.com/PiyushSinghBhakuni
 
 LinkedIn:
-*(Add your LinkedIn profile)*
+https://www.linkedin.com/in/piyush-singh-bhakuni-449098282/
 
 ---
 
