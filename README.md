@@ -1,145 +1,320 @@
 # 🍽️ Khana Khajana
-> Kitchen Inventory Manager — manage dishes, run daily polls, and track what your family eats. Synced across all devices via Firebase.
+
+**Khana Khajana** is a cloud-based kitchen inventory and meal management web application that helps families, roommates, and shared households organize groceries, plan meals, and make food-related decisions collaboratively.
+
+The application stores all data in **Firebase Cloud Firestore**, allowing users to access and synchronize information across multiple devices in real time.
 
 ---
 
-## 📁 Project Structure
+## 🚀 Live Demo
+
+🌐 https://khana-khajana-b9c4c.web.app
+
+---
+
+## 📖 Problem Statement
+
+Managing groceries and deciding daily meals in a shared household is often confusing. Different people purchase ingredients independently, food gets wasted, and deciding what to cook becomes difficult.
+
+There is no centralized system where everyone can:
+
+- Track available ingredients
+- Plan meals
+- Vote for today's food
+- Estimate food quantity
+- Access updated information from multiple devices
+
+---
+
+## 💡 Solution
+
+Khana Khajana provides a centralized cloud-based platform where all household members can collaboratively manage their kitchen inventory.
+
+The application allows users to:
+
+- Maintain a common inventory
+- Record purchased items
+- Vote for meals
+- Track food quantity
+- Synchronize all information using Firebase Cloud Firestore
+
+---
+
+# ✨ Features
+
+- 👤 User Registration
+- 🔐 User Login
+- ☁️ Cloud Synchronization using Firebase Firestore
+- 🍅 Kitchen Inventory Management
+- 🥗 Meal Planning
+- 🗳️ Daily Food Voting
+- 🍽️ Food Quantity Tracking
+- 📱 Responsive User Interface
+- 🌍 Multi-device Data Access
+
+---
+
+# 🛠️ Tech Stack
+
+### Frontend
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+
+### Backend
+
+- Firebase Cloud Firestore
+
+### Hosting
+
+- Firebase Hosting
+
+### Version Control
+
+- Git
+- GitHub
+
+---
+
+# 📂 Project Structure
 
 ```
-khana-khajana/
-├── index.html               ← Main entry point
-├── README.md                ← This file
+Khana-Khajana
+│
 ├── css/
-│   └── style.css            ← All styles
-└── js/
-    ├── firebase-config.js   ← ⚠️ Paste your Firebase credentials here
-    ├── storage.js           ← Firestore read/write + real-time listener
-    ├── state.js             ← Global app state & constants
-    ├── utils.js             ← Toast, alert, render, header
-    ├── pages.js             ← Landing, Auth, Char Picker, Kitchen Choice pages
-    ├── tabs.js              ← Kitchen tabs: Home, Menu, Poll, History, Settings
-    ├── actions.js           ← All user actions (auth, kitchen, dishes, poll)
-    └── app.js               ← Entry point
+│   └── style.css
+│
+├── js/
+│   ├── actions.js
+│   ├── app.js
+│   ├── firebase-config.js
+│   ├── pages.js
+│   ├── state.js
+│   ├── storage.js
+│   ├── tabs.js
+│   └── utils.js
+│
+├── firebase.json
+├── firestore.rules
+├── firestore.indexes.json
+├── index.html
+└── README.md
 ```
 
 ---
 
-## 🔥 Firebase Setup (Free — 5 minutes)
+# ⚙️ Installation
 
-You need a free Firebase project to enable cloud sync across devices.
+Clone the repository
 
-### Step 1 — Create a Firebase Project
-1. Go to https://console.firebase.google.com
-2. Click **"Add project"**
-3. Name it `khana-khajana` → Continue → Create project
+```bash
+git clone https://github.com/PiyushSinghBhakuni/Khana-Khajana.git
+```
 
-### Step 2 — Register a Web App
-1. On the project homepage, click the **`</>`** (Web) icon
-2. Give it a nickname (e.g. `khana-web`) → Click **Register app**
-3. You'll see a `firebaseConfig` object — **keep this page open**
+Move into the project directory
 
-### Step 3 — Paste Credentials
-Open `js/firebase-config.js` and replace each placeholder with the real value from Step 2:
+```bash
+cd Khana-Khajana
+```
 
-```js
+---
+
+# 🔥 Firebase Setup
+
+1. Create a Firebase Project.
+2. Enable Cloud Firestore.
+3. Create a Firestore Database.
+4. Replace the Firebase configuration inside
+
+```
+js/firebase-config.js
+```
+
+with your own Firebase credentials.
+
+Example
+
+```javascript
 const firebaseConfig = {
-  apiKey:            "AIzaSy...",
-  authDomain:        "khana-khajana.firebaseapp.com",
-  projectId:         "khana-khajana",
-  storageBucket:     "khana-khajana.appspot.com",
-  messagingSenderId: "123456789",
-  appId:             "1:123456789:web:abc123"
+    apiKey: "...",
+    authDomain: "...",
+    projectId: "...",
+    storageBucket: "...",
+    messagingSenderId: "...",
+    appId: "..."
 };
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+window.db = db;
 ```
 
-### Step 4 — Enable Firestore Database
-1. In the Firebase console left menu: **Build → Firestore Database**
-2. Click **Create database**
-3. Choose **Start in test mode** (allows all reads/writes for 30 days)
-4. Select any region → **Enable**
-
-> **After 30 days**, go to Firestore → Rules and replace the rules with:
-> ```
-> rules_version = '2';
-> service cloud.firestore {
->   match /databases/{database}/documents {
->     match /{document=**} {
->       allow read, write: if true;
->     }
->   }
-> }
-> ```
-
-### Step 5 — Run the App
-That's it! Open `index.html` with Live Server in VS Code, or host it anywhere.
-
 ---
 
-## 🚀 Running in VS Code
+# ▶️ Running the Project
 
-1. Install the **Live Server** extension (`ritwickdey.LiveServer`)
-2. Open the `khana-khajana/` folder in VS Code
-3. Right-click `index.html` → **Open with Live Server**
-4. App opens at `http://127.0.0.1:5500`
-
-> ⚠️ Don't open `index.html` directly as `file://` — Firebase requires HTTP.
-> Always use Live Server or a hosted URL.
-
----
-
-## 🌐 Free Hosting Options
-
-### Netlify Drop (fastest — no account needed)
-1. Go to https://app.netlify.com/drop
-2. Drag and drop the entire `khana-khajana/` folder
-3. Get a live public URL in seconds
-
-### GitHub Pages
-1. Push the folder to a GitHub repo
-2. Go to **Settings → Pages → Deploy from branch**
-3. Select `main` / root → Save
-
----
-
-## ✨ Features
-
-| Feature | Details |
-|---|---|
-| ☁️ Cloud sync | All data stored in Firebase — works across every device |
-| 🔴 Real-time | Kitchen updates (votes, new members, poll) sync live |
-| 👤 Multi-user auth | Register / Login with hashed passwords |
-| 🎭 Avatar picker | 16 emoji avatars to choose from |
-| 🏠 Kitchen system | Create or join kitchens with a shared password |
-| 👑 Host controls | Transfer host, reset scores, declare poll winners |
-| 🍛 Dish menu | Add/remove dishes with auto emoji |
-| 🗳️ Smart poll | Daily poll picks top-scoring dishes automatically |
-| 📊 Scoring algo | Winner −25 pts · All others +10 pts each round |
-| 📜 History | Full log of every meal cooked |
-| 🚪 Leave kitchen | Members can leave; last member deletes kitchen |
-
----
-
-## 🧠 Scoring Algorithm
-
-- Every dish starts at **100 points**
-- When a dish wins the poll and is marked as cooked → **−25 pts**
-- Every other dish in the kitchen → **+10 pts** (max 100)
-- Daily poll options = the **top 4 highest-scoring** dishes
-- Dishes not cooked for a long time naturally bubble up to the top
-
----
-
-## 💾 Data Structure (Firestore)
+Simply open
 
 ```
-/users/{userId}
-  id, username, passHash, char, createdAt
-
-/kitchens/{kitchenId}
-  id, name, passHash, hostId, createdAt
-  members: { [userId]: { id, username, char } }
-  dishes:  { [dishId]: { id, name, emoji, points, timesCooked, lastCooked } }
-  currentPoll: { date, options[], votes{}, winner }
-  lastMade: { dish, time }
-  history: [ { dish, emoji, time, votes, dishId } ]
+index.html
 ```
+
+in your browser
+
+or deploy using Firebase Hosting
+
+```bash
+firebase deploy
+```
+
+---
+
+# ☁️ Deployment
+
+The application is deployed using Firebase Hosting.
+
+Deploy command
+
+```bash
+firebase deploy
+```
+
+---
+
+# 📱 Application Workflow
+
+```
+User Registration
+        │
+        ▼
+User Login
+        │
+        ▼
+Kitchen Inventory
+        │
+        ▼
+Meal Suggestions
+        │
+        ▼
+Food Voting
+        │
+        ▼
+Food Quantity Management
+        │
+        ▼
+Cloud Firestore Synchronization
+```
+
+---
+
+# 📸 Screenshots
+
+## Landing Page
+
+<img width="1710" height="1112" alt="Screenshot 2026-07-03 at 12 22 45 AM" src="https://github.com/user-attachments/assets/1a22bd27-fb67-496c-961d-12ab77366260" />
+
+---
+
+## Login
+
+<img width="1710" height="1112" alt="Screenshot 2026-07-03 at 12 21 32 AM" src="https://github.com/user-attachments/assets/155e6557-0b13-460e-b6e7-e0fa619b4127" />
+
+---
+
+## Inventory Dashboard
+
+<img width="1710" height="1112" alt="Screenshot 2026-07-03 at 12 18 39 AM" src="https://github.com/user-attachments/assets/e802bd8b-1066-4038-8fe2-9161ddcf71ad" />
+
+---
+
+## Meal Voting
+
+<img width="1710" height="1112" alt="Screenshot 2026-07-03 at 12 16 02 AM" src="https://github.com/user-attachments/assets/ae87c8cb-d611-437c-a513-fe31f662fd30" />
+
+---
+
+# 🚧 Challenges Faced
+
+- Migrating from Local Storage to Firebase Cloud Firestore
+- Managing cloud synchronization
+- Designing reusable JavaScript modules
+- Handling asynchronous Firestore operations
+- Deploying the application using Firebase Hosting
+
+---
+
+# 📚 Learning Outcomes
+
+Through this project I learned:
+
+- Firebase Cloud Firestore
+- Cloud Database Design
+- CRUD Operations
+- Firebase Hosting
+- JavaScript ES6
+- Git & GitHub
+- Cloud Deployment
+
+---
+
+# 🔮 Future Improvements
+
+- Firebase Authentication
+- Push Notifications
+- Barcode Scanner
+- Grocery Expense Tracking
+- AI-based Meal Recommendation
+- Nutrition Analysis
+- Offline Support
+- Dark Mode
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork the repository
+2. Create a new branch
+
+```bash
+git checkout -b feature-name
+```
+
+3. Commit your changes
+
+```bash
+git commit -m "Added new feature"
+```
+
+4. Push
+
+```bash
+git push origin feature-name
+```
+
+5. Open a Pull Request
+
+---
+
+# 👨‍💻 Author
+
+**Piyush Singh Bhakuni**
+
+GitHub:
+https://github.com/PiyushSinghBhakuni
+
+LinkedIn:
+*(Add your LinkedIn profile)*
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## ⭐ If you found this project useful, don't forget to star the repository.
